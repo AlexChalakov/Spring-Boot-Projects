@@ -9,3 +9,4 @@ In the course and specifically this project I've touched on so far the following
     - Calling objects into the controller and playing with the output
     - Component, Autowired, Service
     - RequestHeader, RequestBody, PostMapping, PutMapping, DeleteMapping
+    - Exception handling - SystemException, BusinessException, throws, error class

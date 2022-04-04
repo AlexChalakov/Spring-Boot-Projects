@@ -1,5 +1,6 @@
 package com.maingroup.SpringBootProjects.Components;
 
+import com.maingroup.SpringBootProjects.Exception.SystemException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,12 +15,12 @@ public class PersonService {
         return new Person(fName,lName);
     }
 
-    public Integer getAge(Optional<String> age){
+    public Integer getAge(Optional<String> age) throws SystemException{ //important to nor forget to throw exception
         if (age.isPresent()) {
             try {
                 return Integer.parseInt(age.get());
             } catch (Exception e) {
-                return null;
+                throw new SystemException("103", "Age is not an Integer with msg: " + e.getMessage()); //instead ot handling it, it throws custom exception
             }
         }
         return null;

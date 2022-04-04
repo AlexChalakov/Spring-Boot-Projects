@@ -1,5 +1,6 @@
 package com.maingroup.SpringBootProjects.Components;
 
+import com.maingroup.SpringBootProjects.Exception.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ public class PersonComponent {
     @Autowired
     PersonService perSvc;
 
-    public Person getPerson(String fName, String lName, Optional<String> age){
+    public Person getPerson(String fName, String lName, Optional<String> age) throws SystemException {
         Integer personAge = perSvc.getAge(age);
         return perSvc.getService(fName, lName, personAge);
     }
