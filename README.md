@@ -7,4 +7,5 @@ In the course and specifically this project I've touched on so far the following
     - RESTController, GetMapping, PathVariable, RequestParam
     - ResponseEntity for HTTP status codes and Optional Variables
     - Calling objects into the controller and playing with the output
-    - 
+    - Component, Autowired, Service
+    - RequestHeader, RequestBody, PostMapping, PutMapping, DeleteMapping
