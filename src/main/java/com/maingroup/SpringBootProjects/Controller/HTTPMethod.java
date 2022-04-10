@@ -14,14 +14,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * The general HTTP Method that makes the connection with the REST API possible.
+ */
 @RestController //web dependency - allows us to use the REST API
 public class HTTPMethod {
 
-    private static final Log LOGGING = LogFactory.getLog(HTTPMethod.class);
+    private static final Log LOGGING = LogFactory.getLog(HTTPMethod.class); //logging initializer
 
     @Autowired
     PersonComponent personComp;
 
+    /**
+     * The customization of the message received when the request gets returned.
+     * @param clientId ID client declared in Postman.
+     * @param fName first name of Person taken from URL.
+     * @param lName last name of Person taken from URL.
+     * @param age age of Person as requested by the URL.
+     * @return returning the message with the data, either body of Person or customized error.
+     */
     @GetMapping("/person/fn/{firstName}/ln/{lastName}") //shows us how to use the GET + url
     public ResponseEntity<PersonResponse> getCustomMessage( //ResponseEntity is to play with the http status of the request
             @RequestHeader(value = "clientId", required = true) String clientId,
@@ -33,9 +44,9 @@ public class HTTPMethod {
         Person person = null;
         LOGGING.info("info logging");
         try {
-            person = personComp.getPerson(fName,lName,age);
+            person = personComp.getPerson(fName,lName,age); //initializing component of Person
         } catch (SystemException e) {
-            LOGGING.error("Logging for exception - server error");
+            LOGGING.error("Logging for exception - server error"); //puts the logging error in the terminal
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new PersonResponse(null, new PersonError(e.getErrID(), e.getMessage())));
         }
@@ -54,6 +65,11 @@ public class HTTPMethod {
         }
     }
 
+    /**
+     * Post API method
+     * @param person Person object.
+     * @return the body of the person with its data.
+     */
     @PostMapping(value="/addPerson")
     public ResponseEntity<Person> createPerson(
             @RequestBody Person person
@@ -61,6 +77,11 @@ public class HTTPMethod {
         return ResponseEntity.ok().body(person);
     }
 
+    /**
+     * Put API method
+     * @param person Person object.
+     * @return the body of the person with its data.
+     */
     @PutMapping(value="/modifyPerson")
     public ResponseEntity<Person> modifyPerson(
             @RequestBody Person person
@@ -68,6 +89,11 @@ public class HTTPMethod {
         return ResponseEntity.ok().body(person);
     }
 
+    /**
+     * Delete API method
+     * @param person Person object.
+     * @return the body of the person with its data.
+     */
     @DeleteMapping(value="/deletePerson")
     public ResponseEntity<Person> deletePerson(
             @RequestBody Person person
